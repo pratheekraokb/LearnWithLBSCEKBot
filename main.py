@@ -121,10 +121,13 @@ class Web_Scrap():
 
                 
             for link in all_links:
+                # print(l)
                 href = link.get('href')
                 text = link.text.strip()
+                # print(href,text)
 
-                if text and ("-notes/" in href) and ("Notes" not in text) and ("upload-notes/" not in href) and "KTU" not in text:
+                if text and ("Notes" not in text) and ('-projects' not in href) and ('student' not in href) and (len(text.split()) >= 2) and ("question" not in href) and ("syllabus" not in href) and ("upload-notes/" not in href) and "KTU" not in text and (len(href)>40) and (len(text)>10):
+                
                     # print(f"Link = {href}, text = {text}")
                     subLinkDict[text] = href
             return subLinkDict
@@ -180,7 +183,7 @@ class Web_Scrap():
                             content = f"{text}"
                             content = f"{subject} " + content
                             result.append([link,content])
-                            print(link, content)
+                            # print(link, content)
 
                         elif x >= y and "module" in text:
                             link = Web_Scrap.get_direct_download_link(href)
@@ -188,14 +191,14 @@ class Web_Scrap():
                             content = f" {text} - SET {i}"
                             content = f"{subject} " + content
                             result.append([link,content])
-                            print(link, content)
+                            # print(link, content)
 
                         elif "module" in text and x <y :
                             link = Web_Scrap.get_direct_download_link(href)
                             content = f"{text} - SET {i}"
                             content = f"{subject} " + content
                             result.append([link,content])
-                            print(link, content)
+                            # print(link, content)
                         
 
                         x = x + 1
@@ -261,7 +264,7 @@ semesters = ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8"]
 departments = ["CSE", "ECE", "EEE", "MECH", "I - T"]
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    welcome_message = "Welcome! Please select your semester and department."
+    welcome_message = "Welcome to LearnWithLBSCEKBot ( Only 2019 KTU SCHEMA Materials Available) ! Please select your semester and department."
     keyboard = [
         [InlineKeyboardButton(sem, callback_data=f"sem:{sem}") for sem in semesters],
         [InlineKeyboardButton(dep, callback_data=f"dept:{dep}") for dep in departments],
@@ -292,18 +295,16 @@ async def handle_query_selection(update: Update, context: ContextTypes.DEFAULT_T
         # Store subLinkDict in user_data for later use
         context.user_data["subLinkDict"] = subLinkDict
 
-        # Create buttons for each dictionary key, each taking 100% width
+        # Create buttons for each dictionary key with one button per row
         keyboard = [
-            [InlineKeyboardButton(sub, callback_data=f"sub:{sub}") for sub in subLinkDict.keys()]
+            [InlineKeyboardButton(sub, callback_data=f"sub:{sub}")] for sub in subLinkDict.keys()
         ]
+
         reply_markup = InlineKeyboardMarkup(keyboard)
 
-        # Check if the message content or keyboard buttons are different before editing
-        if (
-            query.message.text != "Please select a subject:" or
-            query.message.reply_markup.inline_keyboard != reply_markup.inline_keyboard
-        ):
-            await query.edit_message_text(text="Please select a subject:", reply_markup=reply_markup)
+        # Always attempt to edit the message with the new text and reply markup
+        await query.edit_message_text(text="Please select a subject:", reply_markup=reply_markup)
+
 
 
 async def handle_subject_selection(update: Update, context: ContextTypes.DEFAULT_TYPE):
