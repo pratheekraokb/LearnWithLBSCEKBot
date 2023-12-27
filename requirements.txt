@@ -1,4 +1,4 @@
 beautifulsoup4==4.12.2
-httpx==0.26.0
+httpx
 python-telegram-bot==20.7
 Requests==2.31.0
