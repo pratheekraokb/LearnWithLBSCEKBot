@@ -230,25 +230,19 @@ class Web_Scrap():
 # Telegram BOT
             
 bot_token = "6782675554:AAGQEuIMAWlf71Q9gbWajqsMeKAIgRO0eMQ"
-
-import logging
-from telegram import Update
-from telegram.ext import CommandHandler, ContextTypes, MessageHandler, filters
-
-from io import BytesIO
-# from telegram import Update
-# from telegram.ext import CommandHandler, ApplicationBuilder, ContextTypes, MessageHandler
-
 import logging
 from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
-from telegram.ext import CommandHandler, ApplicationBuilder, ContextTypes, MessageHandler, filters, CallbackQueryHandler
-
+from telegram.ext import (
+    CommandHandler,
+    ApplicationBuilder,
+    ContextTypes,
+    MessageHandler,
+    filters,
+    CallbackQueryHandler,
+)
+import signal
 
 from io import BytesIO
-from telegram import Update
-from telegram.ext import CommandHandler,ContextTypes, MessageHandler, filters
-
-
 
 # Logging configuration
 logging.basicConfig(
@@ -350,6 +344,15 @@ if __name__ == '__main__':
         application.add_handler(start_handler)
         application.add_handler(callback_query_handler)
         application.add_handler(subject_selection_handler)
+
+        # Use a signal handler to gracefully stop the bot
+        def stop_bot(signum, frame):
+            logging.info(f"Received signal {signum}. Stopping the bot.")
+            application.stop()
+
+        # Register the signal handler for termination signals
+        signal.signal(signal.SIGTERM, stop_bot)
+        signal.signal(signal.SIGINT, stop_bot)
 
         application.run_polling()
     except Exception as e:
