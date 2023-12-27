@@ -4,6 +4,7 @@ import re
 import httpx
 
 
+
 baseurl = "https://www.ktunotes.in/ktu-2019-new-scheme-notes/"
 departments = ["CSE", "ECE", "EEE", "MECH", "I - T"]
 
@@ -228,7 +229,6 @@ class Web_Scrap():
 
 # Telegram BOT
             
-
 bot_token = "6782675554:AAGQEuIMAWlf71Q9gbWajqsMeKAIgRO0eMQ"
 
 import logging
@@ -242,10 +242,6 @@ from telegram.ext import CommandHandler, ApplicationBuilder, ContextTypes, Messa
 import logging
 from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import CommandHandler, ApplicationBuilder, ContextTypes, MessageHandler, filters, CallbackQueryHandler
-
-
-
-
 
 
 from io import BytesIO
