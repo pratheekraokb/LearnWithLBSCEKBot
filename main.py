@@ -250,7 +250,7 @@ logging.basicConfig(
     level=logging.INFO
 )
 
-semesters = ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8"]
+semesters = ["S3", "S4", "S5", "S6", "S7", "S8"]
 departments = ["CSE", "ECE", "EEE", "MECH", "I - T"]
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
