@@ -233,11 +233,11 @@ bot_token = "6782675554:AAGQEuIMAWlf71Q9gbWajqsMeKAIgRO0eMQ"
 
 import logging
 from telegram import Update
-from telegram.ext import CommandHandler, ApplicationBuilder, ContextTypes, MessageHandler, filters
+from telegram.ext import CommandHandler, ContextTypes, MessageHandler, filters
 
 from io import BytesIO
-from telegram import Update
-from telegram.ext import CommandHandler, ApplicationBuilder, ContextTypes, MessageHandler
+# from telegram import Update
+# from telegram.ext import CommandHandler, ApplicationBuilder, ContextTypes, MessageHandler
 
 import logging
 from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
@@ -246,7 +246,7 @@ from telegram.ext import CommandHandler, ApplicationBuilder, ContextTypes, Messa
 
 from io import BytesIO
 from telegram import Update
-from telegram.ext import CommandHandler, ApplicationBuilder, ContextTypes, MessageHandler, filters
+from telegram.ext import CommandHandler,ContextTypes, MessageHandler, filters
 
 
 
