@@ -5,7 +5,7 @@ import re
 # from flask import Flask, request
 
 # app = Flask(__name__)
-
+bot_token = "6782675554:AAGQEuIMAWlf71Q9gbWajqsMeKAIgRO0eMQ"
 baseurl = "https://www.ktunotes.in/ktu-2019-new-scheme-notes/"
 departments = ["CSE", "ECE", "EEE", "MECH", "I - T"]
 
@@ -367,4 +367,3 @@ if __name__ == '__main__':
     except Exception as e:
         logging.error(f"Error running the bot: {e}")
 
-bot_token = "6782675554:AAGQEuIMAWlf71Q9gbWajqsMeKAIgRO0eMQ"
