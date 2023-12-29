@@ -2,8 +2,9 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import httpx
+from flask import Flask, request
 
-
+app = Flask(__name__)
 
 baseurl = "https://www.ktunotes.in/ktu-2019-new-scheme-notes/"
 departments = ["CSE", "ECE", "EEE", "MECH", "I - T"]
@@ -329,6 +330,13 @@ async def handle_subject_selection(update: Update, context: ContextTypes.DEFAULT
     except Exception as e:
         logging.error(f"Error in getNotes: {e}")
 
+@app.route('/')
+def index():
+    return 'Hello, this is your Telegram bot!'
+
+
+
+
 
 if __name__ == '__main__':
     try:
@@ -354,6 +362,10 @@ if __name__ == '__main__':
         signal.signal(signal.SIGTERM, stop_bot)
         signal.signal(signal.SIGINT, stop_bot)
 
+        # Run Telegram bot using polling
         application.run_polling()
+
+        # Run Flask app
+        app.run(port=5000)  # You can specify the port you want to use
     except Exception as e:
         logging.error(f"Error running the bot: {e}")
